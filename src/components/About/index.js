@@ -34,7 +34,7 @@ const About = () => {
             I'm very ambitious front-end developer looking for an opportunity to work with the latest
             technologies on challenging and diverse projects.
           </p>
-          <p align="LEFT">
+          <p>
             I'm quietly confident, naturally curious, and perpetually working on
             improving my chops one design problem at a time.
           </p>

@@ -171,13 +171,13 @@ const Home = () => {
               style={{ marginTop:"-10px", marginLeft:"-10px" }}
             />
             <AnimatedLetters
-              letterclass={letterClass}
+              letterClass={letterClass}
               strArray={nameArray}
               idx={15}
             />
             <br />
             <AnimatedLetters
-              letterclass={letterClass}
+              letterClass={letterClass}
               strArray={jobArray}
               idx={22}
             />

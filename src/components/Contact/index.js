@@ -5,6 +5,7 @@ import { useRef } from 'react'
 import emailjs from '@emailjs/browser'
 import AnimatedLetters from '../AnimatedLetters'
 import './index.scss'
+import axios from 'axios';
 
 const Contact = () => {
   const [letterClass, setLetterClass] = useState('text-animate')
@@ -16,25 +17,42 @@ const Contact = () => {
     }, 3000)
   }, [])
 
-  const sendEmail = (e) => {
-    e.preventDefault()
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
 
-    emailjs
-      .sendForm(
-        'gmail',
-        'template_YeJhZkgb',
-        form.current,
-        'your-token'
-      )
-      .then(
-        () => {
-          alert('Message successfully sent!')
-          window.location.reload(false)
-        },
-        () => {
-          alert('Failed to send the message, please try again')
-        }
-      )
+
+  // const sendResponses = () => {
+    
+  //   const scriptURL = 'https://script.google.com/macros/s/AKfycbzyR5-Xt2dzPvd78ruiYxiAcXvDTCzysw2AwZMxeumbRsbhQGLKUMWlAmtONaBAgVPB/exec'
+  //   const form = document.forms['portfolio-responses']
+  
+  //   form.addEventListener('submit', e => {
+  //     e.preventDefault()
+  //     fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+  //       .then(response => alert("Thanks for Contacting..! I will get back to you soon..."))
+  //       .catch(error => console.error('Error!', error.message))
+  //   })
+  // }
+
+  const handleFormResponses = (e) =>{
+    e.preventDefault();
+    // console.log(name,email,subject,message);
+    const data = {
+      Name:name,
+      Email:email,
+      Subject:subject,
+      Message:message
+    }
+    axios.post('https://sheet.best/api/sheets/1e25de2e-22f9-402c-809b-fcfef4b6d6df',data).then((response)=>{
+      // console.log(response);
+      alert('Thanks for Contacting me!! I will reach out to you soon...');
+      setName('');
+      setEmail('');
+      setSubject('');
+      setMessage('');
+    })
   }
 
   return (
@@ -54,16 +72,16 @@ const Contact = () => {
             don't hesitate to contact me using below form either.
           </p>
           <div className="contact-form">
-            <form ref={form} onSubmit={sendEmail}>
+            <form name="portfolio-responses" onSubmit={handleFormResponses}>
               <ul>
                 <li className="half">
-                  <input placeholder="Name" type="text" name="name" required />
+                  <input placeholder="Name" type="text" onChange={(e)=>setName(e.target.value)} value={name} required />
                 </li>
                 <li className="half">
                   <input
                     placeholder="Email"
                     type="email"
-                    name="email"
+                    onChange={(e)=>setEmail(e.target.value)} value={email}
                     required
                   />
                 </li>
@@ -71,19 +89,19 @@ const Contact = () => {
                   <input
                     placeholder="Subject"
                     type="text"
-                    name="subject"
+                    onChange={(e)=>setSubject(e.target.value)} value={subject}
                     required
                   />
                 </li>
                 <li>
                   <textarea
                     placeholder="Message"
-                    name="message"
+                    onChange={(e)=>setMessage(e.target.value)} value={message}
                     required
                   ></textarea>
                 </li>
                 <li>
-                  <input type="submit" className="flat-button" value="SEND" />
+                  <input type="submit" name="submit" className="flat-button" value="SEND" />
                 </li>
               </ul>
             </form>
@@ -123,16 +141,16 @@ const Contact = () => {
             don't hesitate to contact me using below form either.
           </p>
           <div className="contact-form">
-            <form ref={form} onSubmit={sendEmail}>
+            <form name="portfolio-responses" onSubmit={handleFormResponses}>
               <ul>
                 <li className="half">
-                  <input placeholder="Name" type="text" name="name" required />
+                  <input placeholder="Name" type="text" onChange={(e)=>setName(e.target.value)} value={name} required />
                 </li>
                 <li className="half">
                   <input
                     placeholder="Email"
                     type="email"
-                    name="email"
+                    onChange={(e)=>setEmail(e.target.value)} value={email}
                     required
                   />
                 </li>
@@ -140,19 +158,19 @@ const Contact = () => {
                   <input
                     placeholder="Subject"
                     type="text"
-                    name="subject"
+                    onChange={(e)=>setSubject(e.target.value)} value={subject}
                     required
                   />
                 </li>
                 <li>
                   <textarea
                     placeholder="Message"
-                    name="message"
+                    onChange={(e)=>setMessage(e.target.value)} value={message}
                     required
                   ></textarea>
                 </li>
                 <li>
-                  <input type="submit" className="flat-button" value="SEND" />
+                  <input type="submit" name="submit" className="flat-button" value="SEND" />
                 </li>
               </ul>
             </form>
